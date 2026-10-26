@@ -16,13 +16,13 @@
     }
 
     let savedTheme;
-    try { savedTheme = localStorage.getItem('portfolio-tema'); } catch { /* Storage may be unavailable. */ }
+    try { savedTheme = localStorage.getItem('portfolio-tema'); } catch { }
     applyTheme(savedTheme === 'claro' ? 'claro' : 'escuro');
     themeButton.hidden = false;
     themeButton.addEventListener('click', () => {
         const theme = root.dataset.tema === 'claro' ? 'escuro' : 'claro';
         applyTheme(theme);
-        try { localStorage.setItem('portfolio-tema', theme); } catch { /* Theme still works without storage. */ }
+        try { localStorage.setItem('portfolio-tema', theme); } catch { }
     });
 
     function closeMenu(returnFocus = false) {
@@ -50,7 +50,6 @@
     menuButton.hidden = false;
     root.classList.add('js');
 
-    // Use section positions so short sections and the end of the page also work.
     function updateActiveSection() {
         const offset = document.querySelector('.cabecalho').offsetHeight + 32;
         let active = sections[0];
