@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${nome} + ' | Portfólio'">Portfólio</title>
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header class="cabecalho">
+        <nav class="menu container" aria-label="Navegação principal">
+            <a class="inicio" href="#inicio">Meu portfólio</a>
+            <ul id="menu-links" class="menu__lista">
+                <li><a class="menu__link" href="#inicio">Início</a></li>
+                <li><a class="menu__link" href="#sobre">Sobre mim</a></li>
+                <li><a class="menu__link" href="#tecnologias">Tecnologias</a></li>
+                <li><a class="menu__link" href="#projetos">Projetos</a></li>
+                <li><a class="menu__link" href="#contato">Contato</a></li>
+            </ul>
+            <div class="menu__acoes">
+                <button class="tema-toggle" type="button" hidden aria-pressed="false">Tema claro</button>
+                <button class="menu-toggle" type="button" hidden aria-controls="menu-links" aria-expanded="false">Menu</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="conteudo container">
+        <section id="inicio" class="secao apresentacao" aria-labelledby="titulo-inicio">
+            <h1 id="titulo-inicio" class="apresentacao__nome" th:text="${nome}">Nome</h1>
+            <p class="apresentacao__profissao" th:text="${profissão}">Profissão</p>
+            <a class="botao" href="#projetos">Conheça meus projetos</a>
+        </section>
+
+        <section id="sobre" class="secao sobre" aria-labelledby="titulo-sobre">
+            <h2 id="titulo-sobre" class="secao__titulo">Sobre mim</h2>
+            <p class="secao__texto">Sou estudante de Sistemas de Informação e desenvolvedor com foco em back-end Java.
+                Desenvolvo projetos utilizando Spring Boot e busco aprimorar meus conhecimentos na criação de aplicações web.</p>
+        </section>
+
+        <section id="tecnologias" class="secao tecnologias" aria-labelledby="titulo-tecnologias">
+            <h2 id="titulo-tecnologias" class="secao__titulo">Tecnologias</h2>
+            <ul class="tecnologias__lista">
+                <li class="tecnologias__item">Java</li>
+                <li class="tecnologias__item">Spring Boot</li>
+                <li class="tecnologias__item">Spring Security</li>
+                <li class="tecnologias__item">Thymeleaf</li>
+                <li class="tecnologias__item">PostgreSQL</li>
+                <li class="tecnologias__item">Git e GitHub</li>
+            </ul>
+        </section>
+
+        <section id="projetos" class="secao projetos" aria-labelledby="titulo-projetos">
+            <h2 id="titulo-projetos" class="secao__titulo">Meus projetos</h2>
+            <p class="secao__texto" th:if="${#lists.isEmpty(projetos)}">Nenhum projeto disponível no momento.</p>
+            <div class="projetos__lista">
+                <article class="projeto" th:each="projeto : ${projetos}">
+                    <h3 class="projeto__nome" th:text="${projeto.nome}">Nome do projeto</h3>
+                    <p class="projeto__descricao" th:text="${projeto.descricao}">Descrição do projeto</p>
+                    <p class="projeto__tecnologias">
+                        <strong>Tecnologias:</strong>
+                        <span th:text="${projeto.tecnologias}">Tecnologias utilizadas</span>
+                    </p>
+                    <a class="projeto__link" th:href="${projeto.linkGithub}" target="_blank" rel="noopener noreferrer"
+                       th:attr="aria-label=|Ver ${projeto.nome} no GitHub|">Ver no GitHub</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="contato" class="secao contato" aria-labelledby="titulo-contato">
+            <h2 id="titulo-contato" class="secao__titulo">Contato</h2>
+            <p class="secao__texto">Você pode conhecer mais sobre meu trabalho e entrar em contato pelo meu perfil no GitHub.</p>
+            <a class="contato__link" href="https://github.com/GustavoBaiao" target="_blank" rel="noopener noreferrer">Meu GitHub</a>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <p class="rodape__texto" th:text="${nome} + ' — Portfólio'">Portfólio</p>
+            <a class="rodape__link" href="#inicio">Voltar ao início</a>
+        </div>
+    </footer>
+    <script src="/js/script.js" th:src="@{/js/script.js}" defer></script>
+</body>
+</html>
